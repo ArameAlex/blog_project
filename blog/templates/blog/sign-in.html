@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header_reference %}
+    <link rel="stylesheet" href="{% static "blog/blog.css" %}">
+    <link rel="stylesheet" href="{% static "blog/sign_in.css" %}">
+{% endblock %}
+
+{% block title %} Sign in {% endblock %}
+
+{% block content %}
+<form action="" method="post">
+        {% csrf_token %}
+        <div>
+            <h3 id="username-sign-in">Username</h3>
+            <input id="name-input" type="text" placeholder="Enter Username" name="uname" required>
+            <h3 id="pass-sign-in">Password</h3>
+            <input id="pass-input" type="password" placeholder="Enter Password" name="psw" required>
+            <br> <br>
+            <button id="submit" type="submit">Login</button>
+        </div>
+    </form>
+{% endblock %}

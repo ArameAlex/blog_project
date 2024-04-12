@@ -1,0 +1,20 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block title %} Create Post {% endblock %}
+
+{% block header_reference %}
+    <link rel="stylesheet" href="{% static "blog/blog.css" %}">
+    <link rel="stylesheet" href="{% static "blog/sign_in.css" %}">
+    <link rel="stylesheet" href="{% static "blog/update-post.css" %}">
+{% endblock %}
+
+{% block content %}
+<form action="" method="post">
+        {% csrf_token %}
+        <div id="new-post">
+            <input type="text" placeholder="tag-name" name="tag-adder" maxlength="100">
+            <button type="submit" name="create-tag">Add new category</button>
+        </div>
+</form>
+{% endblock %}

@@ -1,0 +1,38 @@
+#pass-input, #name-input {
+  width: 70%;
+  padding: 12px 20px;
+  display: block;
+  margin: auto;
+  font-size:22px;
+}
+#pass-sign-in, #username-sign-in {
+    font-size:25px;
+    text-align: center;
+}
+
+#submit {
+  background-color: #f11c24;
+  color: white;
+  padding: 14px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 75%;
+  font-size:25px;
+  display: block;
+  margin: auto;
+}
+
+#submit:hover {
+  opacity: 0.8;
+}
+div{
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    border: 2px solid black;
+    border-radius: 10px;
+    width:80%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-item: center;
+    margin: 10px auto;
+    padding:20px;
+}

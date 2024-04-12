@@ -1,0 +1,21 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block title %} Edit Post {% endblock %}
+
+{% block header_reference %}
+    <link rel="stylesheet" href="{% static "blog/blog.css" %}">
+    <link rel="stylesheet" href="{% static "blog/sign_in.css" %}">
+    <link rel="stylesheet" href="{% static "blog/update-post.css" %}">
+{% endblock %}
+
+{% block content %}
+<form method="post">
+    <div id="new-post">
+    {% csrf_token %}
+    {{ form.as_p }}
+        <a href="{% url 'create-new-tag' %}"> Create New Tag</a>
+    <button id="update"  type="submit">Update Post</button>
+    </div>
+</form>
+{% endblock %}

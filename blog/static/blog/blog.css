@@ -1,0 +1,120 @@
+ul {
+    list-style: none;
+    margin: 2rem auto;
+    width:90%;
+    max-width: 100rem;
+    padding: 1rem;
+}
+a li {
+    margin:2rem 0;
+    border: 2px solid black;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.3);
+    background:#f6f6f6;
+    text-align: center;
+    font-size:2rem;
+    padding:5px;
+    transition: all ease 0.3s;
+    border-radius: 10px;
+}
+a{
+    text-decoration:none;
+    color:black;
+    transition: all ease 0.1s;
+    font-family: Copperplate;
+    font-weight: bold;
+}
+header{
+  padding: 5px 10px;
+  background: #f11c24;
+  font-size: 1.2rem;
+}
+
+header a{
+    text-decoration:none;
+    color: white;
+    padding: 2rem;
+}
+header a:hover{
+    color: #e6e6e6;
+    transition: all ease 0.2s;
+}
+.h2-title{
+    text-align: center;
+    border-radius: 15px 60px;
+    margin: 2rem auto;
+    width:75%;
+    max-width: 100%;
+    padding:10px;
+    font-size:3rem;
+    color: white;
+    background:#f11c24;
+    box-shadow: 0 2px 8px rgba(15, 0, 0, 0.5);
+}
+
+#about p{
+    list-style: none;
+    margin: 2rem auto;
+    width:90%;
+    max-width: 100rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    padding: 1rem;
+    border: 2px solid black;
+    font-size:26px;
+    border-radius: 10px;
+}
+
+li a:hover,li a:active,li:hover,li:active{
+    color:white;
+    background-color:#f11c24;
+}
+#owner{
+    font-size: 18px;
+}
+.h1-search{
+    text-align: center;
+    margin: 2rem auto;
+    max-width: 100rem;
+    padding:15px;
+    font-size:3rem;
+    width:75%;
+    box-shadow: 0 2px 8px rgba(15, 0, 0, 0.5);
+    background:#f3f3f3;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+.pagination{
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    border: 2px solid black;
+    border-radius: 10px;
+    width:85%;
+    flex-direction: row;
+    margin: 10px auto;
+    padding:20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.page-button-pre, .page-button-next {
+  background-color: #f11c24;
+  color: white;
+  padding: 14px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 15%;
+  font-size:25px;
+}
+.page-button-pre:hover, .page-button-next:hover{
+    opacity: 0.8;
+}
+.current{
+  background-color: #c20e15;
+  color: white;
+  width:60%;
+  padding: 14px 20px;
+  border-radius: 5px;
+  font-size:25px;
+  text-align:center;
+}
+#last-page, #first-page{
+    background-color: #f04850;
+}

@@ -1,0 +1,40 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block title %} {{ tag }} {% endblock %}
+
+{% block header_reference %}
+    <link rel="stylesheet" href="{% static "blog/blog.css" %}">
+{% endblock %}
+
+{% block content %}
+    <h2 class="h2-title">Posts with Tag: {{ tag | title  }}</h2>
+    <ul>
+        {% if posts %}
+        {% for post in posts %}
+            {% include 'blog/includes/post.html' %}
+        {% endfor %}
+        {% else %}
+            <h1 class="h1-search">Sorry, No Content</h1>
+        {% endif %}
+    </ul>
+    {% if posts.has_previous or posts.has_next %}
+    <div class="pagination">
+        <h2 class="step-links">
+        {% if posts.has_previous %}
+            <a class="page-button-pre" id="first-page" href="?page=1">&laquo; first</a>
+            <a  class="page-button-pre" href="?page={{ posts.previous_page_number }}">previous</a>
+        {% endif %}
+        </h2>
+        <h2 class="current">
+            Page {{ posts.number }} of {{ posts.paginator.num_pages }}
+        </h2>
+        <h2>
+        {% if posts.has_next %}
+            <a class="page-button-next" href="?page={{ posts.next_page_number }}">next</a>
+            <a class="page-button-next" id="last-page" href="?page={{ posts.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+        </h2>
+    </div>
+        {% endif %}
+{% endblock %}

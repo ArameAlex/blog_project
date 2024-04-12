@@ -1,0 +1,44 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block header_reference %}
+    <link rel="stylesheet" href="{% static "blog/blog.css" %}">
+{% endblock %}
+
+{% block title %} {{ web_user.username }} {% endblock %}
+
+{% block content %}
+    <section id="all-posts">
+        <h2 class="h2-title">{{ web_user.username }} Posts</h2>
+        <ul>
+            {% if model %}
+            {% for post in model %}
+                {% include 'blog/includes/post.html' %}
+            {% endfor %}
+            {% else %}
+                <h1 class="h1-search">Sorry, No Content</h1>
+            {% endif %}
+        </ul>
+        {% if model.has_previous or  model.has_next %}
+        <div class="pagination">
+        <h2 class="step-links">
+        {% if model.has_previous %}
+            <a class="page-button-pre" id="first-page" href="?page=1">&laquo; first</a>
+            <a  class="page-button-pre" href="?page={{ model.previous_page_number }}">previous</a>
+        {% endif %}
+        </h2>
+        <h2 class="current">
+            Page {{ model.number }} of {{ model.paginator.num_pages }}
+        </h2>
+        <h2>
+        {% if model.has_next %}
+            <a class="page-button-next" href="?page={{ model.next_page_number }}">next</a>
+            <a class="page-button-next" id="last-page" href="?page={{ model.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+        </h2>
+    </div>
+        {% endif %}
+    </section>
+
+
+{% endblock %}

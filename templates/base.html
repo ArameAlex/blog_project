@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title%} {% endblock %}</title>
+    <link rel="stylesheet" href="{% static "style.css"%}">
+    {% block header_reference %}{% endblock %}
+</head>
+<body>
+<header id="nav-bar">
+    <nav id="log-in">
+        <a id="main_ref" href="{% url 'starting-page' %}">Blog-Page</a>
+    {% if user.is_authenticated %}
+        <a id="sign-in-True" href="{% url 'sign-out' %}">{{ user.username }} (Log out)</a>
+    {% else %}
+        <a id="sign-in-False" href="{% url 'sign-in' %}">Log in</a>
+    {% endif %}
+    </nav>
+</header>
+<header id="lower-header">
+    <nav>
+        <a href="{% url 'posts-page' %}">All Posts</a>
+        <a href="{% url 'user-list' %}">Users</a>
+        <a href="{% url 'all-tags' %}">Categories</a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'create-post' %}">Create Post</a>
+        {% else %}
+        {% endif %}
+    </nav>
+    <nav>
+        <form method="post" action="{% url 'search' %}">
+            {% csrf_token %}
+            <input id="search-in" type="search" placeholder="Search.." name="searched">
+            <button type="submit">Search</button>
+        </form>
+    </nav>
+</header>
+{% block content %} {% endblock %}
+</body>
+<footer>
+    {% block footer_refenece %}{% endblock %}
+</footer>
+</html>

@@ -1,0 +1,44 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block header_reference %}
+    <link rel="stylesheet" href="{% static "blog/blog.css" %}">
+    <link rel="stylesheet" href="{% static "blog/post-detail.css" %}">
+{% endblock %}
+
+{% block title %} {{ post.slug }} {% endblock %}
+
+{% block content %}
+    <h2 class="h2-title">{{ post.title | title }}</h2>
+    <section id="summary">
+        <article>
+            <address id="author-detail">By
+                <a href="{% url 'user-detail' user_id=post.author %}">{{ post.author }}</a>
+            </address>
+            <div>
+                Last Update ON <time>{{ post.date}}</time>
+            </div>
+        </article>
+        <main>
+            <h3>{{ post.short_content }}</h3>
+            <p>
+                {{ post.content | linebreaks }}
+            </p>
+        </main>
+        <main>
+            <h3>Categories:</h3>
+            {% for tag in post.post_tags.all %}
+            <a href="{% url 'posts-by-tag' tag=tag.tag %}"><li>{{ tag.tag }}</li></a>
+            {% endfor %}
+        </main>
+
+    {% if user.is_authenticated and post.author == user %}
+    <form action="{% url 'post-detail-page' post_id=post.slug %}" method="post">
+        {% csrf_token %}
+        <button class="button1" type="submit" name="delete_post">Delete Post</button>
+        <button class="button1" type="submit" name="update_post">Update</button>
+    </form>
+    {% else %}
+        {% endif %}
+    </section>
+{% endblock %}

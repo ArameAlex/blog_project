@@ -1,0 +1,34 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block title %} Create Post {% endblock %}
+
+{% block header_reference %}
+    <link rel="stylesheet" href="{% static "blog/blog.css" %}">
+    <link rel="stylesheet" href="{% static "blog/sign_in.css" %}">
+    <link rel="stylesheet" href="{% static "blog/create-new-post.css" %}">
+{% endblock %}
+
+{% block content %}
+<form action="" method="post">
+        {% csrf_token %}
+        <div id="new-post">
+            <h3 class="h3-inputs">Title</h3>
+            <input type="text" placeholder="Title" name="title" maxlength="200" required class="input-create">
+            <h3 class="h3-inputs">Short Content</h3>
+            <input type="text" placeholder="Short Content" name="Shrt_Cnt" maxlength="300" required class="input-create">
+            <h3 class="h3-inputs">Content</h3>
+            <textarea name="content" cols="40"  placeholder="Enter Content"
+                      rows="10" class="vLargeTextField" required id="text-box"></textarea>
+            <h3 class="h3-inputs">Categories</h3>
+        <select name="post_tags" required="" id="id_post_tags" multiple="">
+        {% for tag in tags %}
+            <option value="{{ tag.id }}">{{ tag.tag }}</option>
+        {% endfor %}
+        </select>
+            <a href="{% url 'create-new-tag' %}"> Create New Tag</a>
+            <br>  <br>
+            <button id="create" type="submit" name="create-post">Create</button>
+        </div>
+</form>
+{% endblock %}
