@@ -13,7 +13,7 @@ class Post_Tag(models.Model):
 class Post_Model(models.Model):
     title = models.CharField(max_length=255)
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='user_admin')
-    date = models.DateField(auto_now=True)
+    date_time = models.DateTimeField(auto_now=True)
     short_content = models.CharField(max_length=360, db_index=True)
     content = models.TextField()
     slug = models.SlugField(default="", null=False, blank=True, max_length=200, unique=True)

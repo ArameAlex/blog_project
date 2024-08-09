@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect, Http404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post_Model, Post_Tag
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout, get_user_model
@@ -7,32 +7,40 @@ from django.contrib.auth.decorators import login_required
 from .form import PostForm
 from django.core.paginator import Paginator
 from .permissions import user_is_post_author
+from django.views.generic import ListView, DetailView
+
 
 def index(request):
     # get last 3 objects by date and render it
-    posts = Post_Model.objects.all().order_by('-date')[0:3]
+    posts = Post_Model.objects.all().order_by('-date_time')[0:3]
     return render(request, 'blog/index.html', {'posts': posts})
+
 
 def posts(request):
     # get all posts order by date
-    all_posts = Post_Model.objects.all().order_by('-date')
+    all_posts = Post_Model.objects.all().order_by('-date_time')
     paginator = Paginator(all_posts, 5)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     return render(request, 'blog/all-posts.html',  {'page_obj': page_obj})
 
+
 def single_post(request, post_id):
     # get or 404 the name of post in the url
-    post = get_object_or_404(Post_Model, slug=post_id)
-    if request.method == 'POST':
-        # if delete button pressed it would delete
-        if 'delete_post' in request.POST:
-            post.delete()
-            return redirect('starting-page')
-        # if update , go to the update page
-        if 'update_post' in request.POST:
-            return redirect('update-post', slug=post_id)
+    try:
+        post = Post_Model.objects.get(slug=post_id)
+        if request.method == 'POST':
+            # if delete button pressed it would delete
+            if 'delete_post' in request.POST:
+                post.delete()
+                return redirect('starting-page')
+            # if update , go to the update page
+            if 'update_post' in request.POST:
+                return redirect('update-post', slug=post_id)
+    except:
+        return render(request, '404.html')
     return render(request, 'blog/post-detail.html', {'post': post})
+
 
 def users(request):
     # get all the users order by id
@@ -43,15 +51,17 @@ def users(request):
     page_obj = paginator.get_page(page_number)
     return render(request, 'blog/user/all-users.html', {'users': page_obj})
 
+
 def user_detail(request, user_id):
     # get the user by his name and filter the posts with his username
     User = get_user_model()
     users = get_object_or_404(User, username=user_id)
-    user_model = Post_Model.objects.filter(author=users).order_by('-date')
+    user_model = Post_Model.objects.filter(author=users).order_by('-date_time')
     paginator = Paginator(user_model, 5)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     return render(request, 'blog/user/user-detail.html', {'web_user': users, 'model': page_obj})
+
 
 def tags(request):
     # show all the tags
@@ -61,6 +71,7 @@ def tags(request):
     page_obj = paginator.get_page(page_number)
     return render(request, 'blog/category/all-tags.html', {'tags': page_obj})
 
+
 def posts_by_tag(request, tag):
     # filter the post by tags in url
     posts = Post_Model.objects.filter(post_tags__tag=tag)
@@ -68,6 +79,7 @@ def posts_by_tag(request, tag):
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     return render(request, 'blog/category/posts_by_tag.html', {'posts': page_obj, 'tag': tag})
+
 
 def sign_in(request):
     # if request was post get username - password
@@ -87,15 +99,17 @@ def sign_in(request):
     else:
         return render(request, 'blog/sign-in.html')
 
+
 def sign_out(request):
     # log out
     logout(request)
     return redirect('starting-page')
 
+
 def search(request):
-    if request.method == 'POST':
+    if request.method == 'GET':
         # get the requested search
-        searched = request.POST['searched']
+        searched = request.GET['searched']
         # get all the all objects that contains search in title
         # with upper or lower case words
         search_post = Post_Model.objects.filter(Q(title__icontains=searched) | Q(content__icontains=searched))
@@ -126,6 +140,7 @@ def create_post(request):
         tags_create = Post_Tag.objects.all()
         return render(request, 'blog/create-post.html', {'tags': tags_create})
 
+
 @login_required
 @user_is_post_author
 def update_post(request, slug):
@@ -144,6 +159,7 @@ def update_post(request, slug):
         form = PostForm(instance=post)
     # it would return the html file
     return render(request, 'blog/update-post.html', {'form': form})
+
 
 @login_required
 def new_tag(request):

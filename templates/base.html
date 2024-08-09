@@ -30,7 +30,7 @@
         {% endif %}
     </nav>
     <nav>
-        <form method="post" action="{% url 'search' %}">
+        <form method="GET" action="{% url 'search' %}">
             {% csrf_token %}
             <input id="search-in" type="search" placeholder="Search.." name="searched">
             <button type="submit">Search</button>

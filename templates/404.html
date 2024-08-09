@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Error 404 {% endblock %}
+
+{% block header_reference %}
+    <link rel="stylesheet" href="{% static "blog/blog.css" %}">
+{% endblock %}
+
+{% block content %}
+    <h2 class="h2-title">
+      Error 404
+    </h2>
+    <h1 class="h1-search">
+      Sorry this page doesn't exist
+    </h1>
+{% endblock %}

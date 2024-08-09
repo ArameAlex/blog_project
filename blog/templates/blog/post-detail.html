@@ -1,4 +1,4 @@
-{% extends 'base.html'%}
+{% extends 'base.html' %}
 {% load static %}
 
 {% block header_reference %}
@@ -16,7 +16,7 @@
                 <a href="{% url 'user-detail' user_id=post.author %}">{{ post.author }}</a>
             </address>
             <div>
-                Last Update ON <time>{{ post.date}}</time>
+                Last Update ON <time>{{ post.date_time }}</time>
             </div>
         </article>
         <main>
